@@ -24,13 +24,8 @@
 				<a href="<?php the_permalink();?>"><?php the_title();?></a>, 
 			<?php endforeach;*/ ?>
 		
-			<p class="copyright clearfix">
-				&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?>. 
-				<?php _e('All Rights Reserved', 'moonspring'); ?>.
-				<a href="/disclaimer/">Disclaimer</a> | <a href="/site-map/">Site Map</a>
-				<br />
-				site by <a target="_blank" rel="nofollow" href="<?php echo CMS_DISTRIBUTOR_URL; ?>"><?php echo CMS_DISTRIBUTOR_NAME; ?></a>
-			</p>
+			<p class="copyright clearfix"><?php HtmlHelper::copyright(); ?></p>
+			<?php HtmlHelper::siteAuthor(); ?>
 		</div><!-- / wrapper -->
 	</div><!-- / footer -->
 	<?php wp_footer(); ?>

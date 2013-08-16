@@ -1,4 +1,6 @@
-<?php 
+<?php
+	// Blog posts index (blog home)
+	// http://codex.wordpress.org/Template_Hierarchy
 	get_header();
 	get_template_part('loop', 'header');
 ?>
