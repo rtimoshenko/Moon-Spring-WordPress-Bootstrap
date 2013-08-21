@@ -15,9 +15,11 @@ class MSAutoLoader
     {
         foreach($this->_classPaths as $path)
         {
-            if(file_exists($path . $class . '.php'))
+            $filePath = $path . $class . '.php';
+            
+            if(file_exists($filePath))
             {
-                require_once($path . $class . '.php');
+                require_once($filePath);
                 break;
             }            
         }

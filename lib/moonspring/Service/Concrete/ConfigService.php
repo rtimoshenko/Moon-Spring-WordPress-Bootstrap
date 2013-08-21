@@ -38,15 +38,15 @@ class MSConfig
 		return $config;
     }
 
+    public function getStoredConfig($memoKey)
+    {
+        return $this->_memoizedConfigs[$memoKey];
+    }
+
     private function storeConfig($memoKey, $configData)
     {
     	$this->_memoizedConfigs[$memoKey] = $configData;
 
     	return $this->getStoredConfig($memoKey);
-    }
-
-    public function getStoredConfig($memoKey)
-    {
-    	return $this->_memoizedConfigs[$memoKey];
     }
 }

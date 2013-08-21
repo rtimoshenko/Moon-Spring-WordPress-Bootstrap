@@ -1,6 +1,6 @@
 <?php
 
-class PostService
+class PostService implements IPostService
 {
 	/**
 	 * Retrieves posts via WP_Query
