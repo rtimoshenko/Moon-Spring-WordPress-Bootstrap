@@ -1,4 +1,4 @@
-<?php
+<?php namespace MoonSpring\Service;
 
 class PostService implements IPostService
 {

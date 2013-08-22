@@ -1,11 +1,11 @@
-<?php
+<?php namespace MoonSpring\Service;
 
 /*
     Author: Ronald Timoshenko | ronaldtimoshenko.com
     Date: 2013-08-16
     Memoized and lazy-loaded configuration loader
 */
-class MSConfig
+class ConfigService
 {
 	//const SEO_TITLE_KEY = 'SEO_title';
     //const SEO_DESCRIPTION_KEY = 'SEO_description';
