@@ -1,7 +1,7 @@
 <?php
 	
 	use \MoonSpring\Service\AutoLoaderService;
-	use \MoonSpring\Service\ServiceManager;
+	//use \MoonSpring\Service\ServiceManager;
 	use \MoonSpring\DI\DependencyResolver;
 	use \MoonSpring\DI\FluentIOCContainer;
 	use \MoonSpring\Theme\WPTheme;
@@ -15,6 +15,6 @@
 	$loader = new AutoLoaderService();
 	$container = new FluentIOCContainer(new DependencyResolver());
 
-	$container->bind('\MoonSpring\DI\IIOCContainer', '\MoonSpring\DI\FluentIOCContainer');
+	$container->bind('\MoonSpring\Service\IServiceManager', '\MoonSpring\Service\ServiceManager');
 
 	$theme = new WPTheme(new ServiceManager($container));

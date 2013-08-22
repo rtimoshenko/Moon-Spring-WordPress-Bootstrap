@@ -2,13 +2,34 @@
 
 use MoonSpring\DI\IIOCContainer;
 
-class ServiceManager
+class ServiceManager implements IServiceManager
 {
+	protected $services = array();
 	protected $iocContainer = null;
 
 	public function __construct(IIOCContainer $iocContainer)
 	{
-		if (is_null($iocContainer))
-			$iocContainer = new FluentIOCContainer();
+		$this->iocContainer = $iocContainer;
+	}
+
+	public function __get($service)
+	{
+		return $this->get($service);
+	}
+
+	public function get($service)
+	{
+		if (isset($this->services[$service]))
+			return $this->services[$service];
+
+		return $this->makeService($service);
+	}
+
+	protected function makeService($service)
+	{
+		$newService = $this->iocContainer->resolve($service);
+		$this->services[$service] = $newService;
+
+		return $newService;
 	}
 }

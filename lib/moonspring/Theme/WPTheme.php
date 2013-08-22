@@ -36,9 +36,9 @@ class WPTheme
     // Dependency injected constructor
     public function __construct(IServiceManager $serviceManager)
     {
-
-        $this->serviceManager = $serviceManager;
-        var_dump($this->serviceManager);
+        var_dump($serviceManager);
+        //$this->assetService = $serviceManager->IAssetService;
+        //$this->seoService = $serviceManager->ISEOService;
         exit;
     }
 }
