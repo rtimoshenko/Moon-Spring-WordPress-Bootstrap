@@ -7,94 +7,98 @@
     Super tiny Inversion of Control (IOC) container based on Laravel IOC Container impelementation
 	https://github.com/laravel/framework/blob/master/src/Illuminate/Container/Container.php
 */
-class IOCContainer implements IIOCContainer
+namespace MoonSpring\IOC\Concrete
 {
-	private $_bindings = array();
-	private $_instances = array();
-
-	public function bind($abstract, $concrete, $isSingleton = false)
+	class IOCContainer implements \MoonSpring\IOC\IIOCContainer
 	{
-		if (is_null($abstract))
-			throw new Exception('Error: $abstract value in bind method cannot be null.');
-
-		if (is_null($concrete))
-			throw new Exception('Error: $concrete value in bind method cannot be null.');
-
-		$this->_bindings[$abstract] = compact('concrete', 'isSingleton');
-	}
-
-	public function getBinding($abstract)
-	{
-		return $this->_bindings[$abstract];
-	}
-
-	public function isSingleton($abstract)
-	{
-		return (bool) $this->getBinding($abstract)['isSingleton'];
-	}
-
-	public function resolve($abstract, $params = array())
-	{
-		// Item is a singleton, return the current instance
-		if (isset($this->_instances[$abstract]))
+		private $_bindings = array();
+		private $_instances = array();
+	
+		public function bind($abstract, $concrete, $isSingleton = false)
 		{
-			return $this->_instances[$abstract];
+			if (is_null($abstract))
+				throw new Exception('Error: $abstract value in bind method cannot be null.');
+	
+			if (is_null($concrete))
+				throw new Exception('Error: $concrete value in bind method cannot be null.');
+	
+			$this->_bindings[$abstract] = compact('concrete', 'isSingleton');
 		}
-
-		$instance = $this->makeInstance($abstract, $params);
-
-		if ($this->isSingleton($abstract))
+	
+		public function getBinding($abstract)
 		{
-			$this->_instances[$abstract] = $instance;
+			return $this->_bindings[$abstract];
 		}
-
-		return $instance;
-	}
-
-	private function makeInstance($abstract, $params = array())
-	{
-		extract($this->getBinding($abstract));
-		
-		$reflector = new ReflectionClass($concrete);
-		$constructor = $reflector->getConstructor();
-
-		// If there isn't a constructor, then there aren't any dependencies
-		if (is_null($constructor))
+	
+		public function isSingleton($abstract)
 		{
-			$instance = new $concrete;
+			$binding = $this->getBinding($abstract);
+			return (bool) $binding['isSingleton'];
 		}
-		else if (!empty($params))
+	
+		public function resolve($abstract, $params = array())
 		{
-			$instance = $reflector->newInstanceArgs($params);
-		}
-		else
-		{
-			$dependencies = $this->getDependencies($params);
-			$instance = $reflector->newInstanceArgs($dependencies);
-		}
-
-		return $instance;
-	}
-
-	private function getDependencies($params)
-	{
-		$dependencies = array();
-
-		foreach ($params as $param) 
-		{
-			$dependency = $param->getClass();
-
-			if (is_null($dependency))
+			// Item is a singleton, return the current instance
+			if (isset($this->_instances[$abstract]))
 			{
-				$dependencies[] = null;
+				return $this->_instances[$abstract];
+			}
+	
+			$instance = $this->makeInstance($abstract, $params);
+	
+			if ($this->isSingleton($abstract))
+			{
+				$this->_instances[$abstract] = $instance;
+			}
+	
+			return $instance;
+		}
+	
+		private function makeInstance($abstract, $params = array())
+		{
+			extract($this->getBinding($abstract));
+			
+			$reflector = new ReflectionClass($concrete);
+			$constructor = $reflector->getConstructor();
+	
+			// If there isn't a constructor, then there aren't any dependencies
+			if (is_null($constructor))
+			{
+				$instance = new $concrete;
+			}
+			else if (!empty($params))
+			{
+				$instance = $reflector->newInstanceArgs($params);
 			}
 			else
 			{
-				$dependencies[] = $this->resolve($dependency->name);
+				$dependencies = $this->getDependencies($params);
+				$instance = $reflector->newInstanceArgs($dependencies);
 			}
-
+	
+			return $instance;
 		}
-
-		return (array) $dependencies;
+	
+		private function getDependencies($params)
+		{
+			$dependencies = array();
+	
+			foreach ($params as $param) 
+			{
+				$dependency = $param->getClass();
+	
+				if (is_null($dependency))
+				{
+					$dependencies[] = null;
+				}
+				else
+				{
+					$dependencies[] = $this->resolve($dependency->name);
+				}
+	
+			}
+	
+			return (array) $dependencies;
+		}
 	}
 }

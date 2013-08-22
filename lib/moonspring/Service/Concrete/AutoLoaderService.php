@@ -1,29 +1,42 @@
 <?php
 
-// http://php.net/manual/en/language.oop5.autoload.php
-class MSAutoLoader 
+namespace MoonSpring\Service\Concrete
 {
-	private $_classPaths = array();
 
-    public function __construct($classPaths)
-    {
-    	$this->_classPaths = $classPaths;
-        spl_autoload_register('MSAutoLoader::load');
-    }
-
-    public static function load($class)
-    {
-        foreach($this->_classPaths as $path)
-        {
-            $filePath = $path . $class . '.php';
+	// http://php.net/manual/en/language.oop5.autoload.php
+	class AutoLoaderService
+	{
+		private $_baseDir = '.';
+		private $_namespaceSeparator = '\\';
+	
+	    public function __construct($baseDir)
+	    {
+	    	$this->setBaseDir($baseDir);
+	    	
+	        spl_autoload_register(array($this, 'load'));
+	    }
+	    
+	    public function setBaseDir($baseDir)
+	    {
+		    $this->_baseDir = $baseDir;
+	    }
+	
+	    public function load($className)
+	    {
+	    	// Get the position of the namespace separator
+			$namespacePosition = strripos($className, $this->_namespaceSeparator);
+			
+			// Pull out the namespace and class name
+            $namespace = substr($className, 0, $namespacePosition);
+            $className = substr($className, $namespacePosition + 1);
             
-            if(file_exists($filePath))
-            {
-                require_once($filePath);
-                break;
-            }            
-        }
-
-        return $this;
-    }
+            // Swap namespace separator for directory separator
+            $fileName = str_replace($this->_namespaceSeparator, DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+            
+            // Put the pieces together
+	        $filePath = $this->_baseDir . $fileName . $className . '.php';
+	        
+	        require($filePath);
+	    }
+	}
 }
