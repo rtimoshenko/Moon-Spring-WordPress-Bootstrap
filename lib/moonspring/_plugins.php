@@ -239,6 +239,7 @@
 		
 	    // keep jQuery in header for plugin compatability
         register_theme_script('jquery', $protocol . '//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js');
+        // <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
         //register_theme_script('jquery-ui', $protocol . '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js');
         //register_theme_script('jquery-cycle', $protocol . '//ajax.aspnetcdn.com/ajax/jquery.cycle/2.99/jquery.cycle.all.min.js', null, null, true);
         //register_theme_script('jquery-cycle2', themedir(false) . '/js/jquery.cycle2.min.js', array('jquery'), '1.0', false);
@@ -264,15 +265,17 @@
 			
 			$less = new lessc;
 			$less->setFormatter($formatter);
-		    $less->checkedCompile(get_template_directory() . '/css/style-dynamic.css.less', get_template_directory() . '/css/style-dynamic.css');
+		    $less->checkedCompile(get_template_directory() . '/css/theme-style.less', get_template_directory() . '/css/theme-style.css');
 		} 
 		catch (Exception $ex) 
 		{
-		    echo "lessphp fatal error: ".$ex->getMessage();
+		    echo 'lessphp fatal error: ' . $ex->getMessage();
 		    exit;
 		}
 	
-        wp_register_style('theme-style', themedir(false) . '/css/style-dynamic.css');
+		// <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+		// <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+        wp_register_style('theme-style', themedir(false) . '/css/theme-style.css');
         wp_enqueue_style('theme-style');
 	}
 	
