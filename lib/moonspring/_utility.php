@@ -107,6 +107,10 @@
 	function navmenu($navId = 'primary', $limitToCurrent = false)
 	{
 		$locations = get_nav_menu_locations();
+
+		if (empty($locations) || !isset($locations[$navId]))
+			return;
+
 		$menu = wp_get_nav_menu_object($locations[$navId]);
 
 		if (!$menu)

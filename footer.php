@@ -13,8 +13,8 @@
 				wp_nav_menu($options);
 			?>
 			
-			<?php/* setup_postdata($post =& get_post($id = 51)); ?>
-			<?php the_content(); */?>
+			<?php /* setup_postdata($post =& get_post($id = 51)); ?>
+			<?php the_content(); */ ?>
 
 			<?php
 				/*$postslist = get_posts('category=7&numberposts=-1');
