@@ -4,8 +4,8 @@
 	
 	// Add featured image support to theme
 	//add_theme_support('post-thumbnails');
-	//add_theme_support('custom-background', array('default-image' => themedir(false) . '/images/bg_body.jpg'));
-	//add_theme_support('custom-header', array('default-image' => themedir(false) . '/images/bg_main.jpg', 'uploads' => 'true', 'width' => 960, 'height' => 680));
+	//add_theme_support('custom-background', array('default-image' => themedir(false) . '/img/bg_body.jpg'));
+	//add_theme_support('custom-header', array('default-image' => themedir(false) . '/img/bg_main.jpg', 'uploads' => 'true', 'width' => 960, 'height' => 680));
 	//add_theme_support('post-formats', array('aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio'));
 	// sample usage: get_template_part('content', get_post_format()); // requires matching template files (i.e., content.php, content-aside.php, content-gallery.php, content-link.php, etc.)
 	

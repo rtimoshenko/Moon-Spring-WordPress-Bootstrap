@@ -10,12 +10,24 @@ Sidebar Width, margin, padding
 Footer min-height, margin, padding
 */
 
+
+/*------------------------------
+	VARIABLES
+------------------------------ */
+
+/* GRID */
+@cols: 12;
+@gutterWidth: 10px;
+@colWidth: 72px;
+
+/* FONT SIZE */
 @baseFontSize: 10;
 @contentFontSize: 14;
 @sidebarFontSize: 14;
 @footerFontSize: 14;
 @contentLineHeight: (22 / @contentFontSize);
 
+/* COLOR */
 @linkColor: #c44032;
 @bodyColor: #575757;
 @accentColor: @linkColor;
@@ -25,17 +37,22 @@ Footer min-height, margin, padding
 @inputColor: #999;
 @dropdownBGColor: #1f497d;
 
+/* FONT FAMILY */
 @headingFontFamily: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", Helvetica, Arial, sans-serif;
 @bodyFontFamily: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", Helvetica, Arial, sans-serif;
-@inputFont: italic 14px Arial, Helvetica, sans-serif;
+@inputFont: normal 14px sans-serif;
 
-@baseWidth: 980px;
-@contentWidth: 620px;
-@sidebarWidth: 254px;
+/* DIMENSIONS */
+@baseWidth: (@cols * (@colWidth + @gutterWidth) - @gutterWidth);
 @dropdownWidth: 250px;
 
 @topHeight: 92px;
 @navHeight: 59px;
+
+
+/*------------------------------
+	MIX-INS
+------------------------------ */
 
 .nomp()
 { 
@@ -52,14 +69,53 @@ Footer min-height, margin, padding
 	-moz-border-radius: @size; -khtml-border-radius: @size; -webkit-border-radius: @size; border-radius: @size; behavior: url(PIE.htc);
 }
 
+.boxShadow(@color: #666, @x: 0, @y: 0, @size: 10px)
+{
+	-webkit-box-shadow: @arguments; -moz-box-shadow: @arguments; box-shadow: @arguments; behavior: url(PIE.htc);
+}
+
+.bgGradient(@from: @accentColor, @to: @linkColor)
+{
+	background-color: @from; background-image: -moz-linear-gradient(top, @from, @to); background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@from), to(@to)); background-image: -webkit-linear-gradient(top, @from, @to); background-image: -o-linear-gradient(top, @from, @to); background-image: linear-gradient(to bottom, @from, @to); background-repeat: repeat-x; filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)", @from, @to));
+}
+
+.button(@radius: 5px)
+{
+	display: inline-block; padding: 5px; margin-bottom: 0; font-size: (@contentFontSize + 0px); font-weight: bold; text-align: center; vertical-align: middle; cursor: pointer; border: 1px solid transparent; .borderRadius(@radius); white-space: nowrap; color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.buttonVariant(@bgFrom, @bgTo, @color: #fff)
+{
+	.button; .bgGradient(@bgFrom, @bgTo); border-color: @bgTo; color: @color; font-family: @headingFontFamily; text-transform: uppercase;
+}
+
+.transition(@target, @duration: 0.1s, @easing: linear)
+{
+	-webkit-transition: @arguments; -moz-transition: @arguments; -o-transition: @arguments; transition: @arguments;
+}
+
 .textInput(@width: 194px, @height: 18px, @padding: 8px)
 {
-	width: (@width - @padding * 2); height: @height; padding: 0 @padding; border: 1px solid @borderColor; font: @inputFont; line-height: @height; color: @inputColor; background: #fff url(../images/bg_input.png) repeat-x 0 0; resize: none; .borderRadius(3px);
+	width: (@width - @padding * 2); height: @height; padding: 0 @padding; border: 1px solid @borderColor; font: @inputFont; line-height: @height; color: @inputColor; background: #fff url(../img/bg_input.png) repeat-x 0 0; resize: none;
+}
+
+.grid(@index) when (@index < @cols + 1) 
+{
+	(~".span@{index}") { width: ((@colWidth + @gutterWidth) * @index) + 0px; }
+	
+	.grid(@index + 1); /* next iteration */
+}
+
+.offset(@index) when (@index < @cols + 1) 
+{
+	(~".offset@{index}") { margin-left: ((@colWidth + @gutterWidth) * @index) + 0px; }
+	
+	.offset(@index + 1); /* next iteration */
 }
 
 
 /*------------------------------
-	GLOBAL RESET
+	NORMALIZE
 ------------------------------ */
 
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
@@ -117,41 +173,44 @@ td { vertical-align: top; }
 
 
 /*------------------------------
+	GRID
+------------------------------ */
+
+[class*="span"] 
+{	float: left; min-height: 1px; margin-left: @gutterWidth; 
+	.row &:first-child { margin-left: 0; }
+}
+.grid(1);
+.offset(1);
+.row 
+{	*zoom: 1; 
+	&:after { clear: both; }
+	&:before, &:after { display: table; content: ""; line-height: 0; }
+}
+
+
+/*------------------------------
 	UTILITY
 ------------------------------ */
 
-.column_wrapper { width: 100%; }
-.column_wrapper, .half_column, .thirds_column, .fourths_column, .fifths_column, .sixths_column { float: left; } 
-.half_column { width: 49.99%; }
-.thirds_column { width: 33.33%; }
-.fourths_column { width: 24.99%; }
-.fifths_column { width: 19.99%; }
-.sixths_column { width: 16.66%; }
+.pull-left, .alignleft 
+{	float: left; 
+	img& { margin: 0 2em 2em 0; }
+}
+.pull-right, .alignright 
+{	float: right; 
+	img& { margin: 0 0 2em 2em; }
+}
 
-.pad_three { width: 46.99%; padding-right: 3%; }
-.pad_five { width: 44.99%; padding-right: 5%; }
-.pad_left { padding-left: 10%; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
 
-.left, .alignleft { float: left; }
-.right, .alignright { float: right; }
-.clearfix { clear: both; }
-.clearfix:before, .clearfix:after { content: ""; display: table; }
-.clearfix:after { clear: both; }
-.clearfix { *zoom: 1; }
+.no-border { border: none !important; }
+.no-padding { padding: 0 !important; }
+.no-margin { margin: 0 !important; }
 
-img.alignleft { margin: 0 2em 2em 0; }
-img.alignright { margin: 0 0 2em 2em; }
-
-.align_left { text-align: left !important; }
-.align_right { text-align: right; }
-.align_center { text-align: center; }
-
-.no_border { border: none !important; }
-.no_padding { padding: 0 !important; }
-.no_margin { margin: 0 !important; }
-.margin_top { margin-top: 2em; }
-.margin_bottom { margin-bottom: 2em; }
-.border_bottom { border-bottom: 1px solid @borderColor; }
+.hide { display: none; }
 
 
 /*------------------------------
@@ -176,9 +235,62 @@ h5 { font-size: 1em; }
 
 
 /*------------------------------
-	NAVIGATION
+	LAYOUT
 ------------------------------ */
 
+#root {  }
+#container { text-align: left; }
+#main { width: @baseWidth; min-height: 500px; margin: 0 auto; }
+
+#content 
+{	width: @contentWidth; float: left; .fontSize(@contentFontSize, @baseFontSize); line-height: @contentLineHeight;
+	p, ul, ol { margin-top: 0; margin-bottom: 1em; } 
+	img { max-width: 100%; }
+}
+
+#top 
+{	width: @baseWidth; height: @topHeight; margin: 0 auto; position: relative;
+	.contact { width: 189px; height: 39px; float: right; margin: 29px 8px 0 0; text-align: center; }
+	#brand { width: 100px; height: 73px; display: block; text-indent: -9000em; overflow: hidden; position: absolute; left: 0; top: 0; background: url(../img/logo.png) no-repeat 0 0; }
+}
+
+#mid 
+{	width: @baseWidth; margin: 0 auto;
+	div { width: @baseWidth;  /* IE hack */ height: 100%; display: none; }
+	img { max-width: 100%; }
+	.cycle-pager 
+	{	min-width: 10px; position: absolute; left: 100px; top: 190px; z-index: 10000; 
+		span 
+		{	width: 12px; height: 12px; margin: 0 5px 0 0; float: left; background: url(../img/sprite_messaging_paging.png) no-repeat -20px 0; text-indent: -9000em;
+			&.cycle-pager-active, &:hover { background-position: 0 0; }
+		}
+	}
+}
+
+#sidebar 
+{	width: @sidebarWidth; float: right; .fontSize(@sidebarFontSize, @baseFontSize);
+	ul
+	{	padding-left: 20px;
+		li { margin-bottom: 3px; }
+		a
+		{	text-decoration: none; display: block;
+			&:hover { text-decoration: underline; }
+		}
+	}
+	h2 { .fontSize(17); font-weight: normal; color: #666; text-transform: uppercase; }
+	form 
+	{ 
+		div { margin: 0 0 1em; }
+		input[type="text"], textarea { .textInput; }
+		textarea { height: 157px; }
+		.wpcf7-submit { width: 95px; height: 23px; background: url(../img/btn_submit.png) no-repeat 0 0; text-indent: -9000em; overflow: hidden; border: none; }
+	}
+}
+
+
+/*------------------------------
+	NAVIGATION
+------------------------------ */
 
 #nav 
 { 	width: 100%; height: @navHeight; position: absolute; left: 0; bottom: 0;
@@ -212,67 +324,10 @@ h5 { font-size: 1em; }
 
 
 /*------------------------------
-	LAYOUT
------------------------------- */
-
-#root {  }
-#container { text-align: left; }
-#main { width: @baseWidth; min-height: 500px; margin: 0 auto; }
-#content 
-{	width: @contentWidth; float: left; .fontSize(@contentFontSize, @baseFontSize); line-height: @contentLineHeight;
-	p, ul, ol { margin-top: 0; margin-bottom: 1em; } 
-	img { max-width: 100%; }
-}
-#top 
-{	width: @baseWidth; height: @topHeight; margin: 0 auto; position: relative;
-	.contact { width: 189px; height: 39px; float: right; margin: 29px 8px 0 0; text-align: center; }
-	#brand { width: 100px; height: 73px; display: block; text-indent: -9000em; overflow: hidden; position: absolute; left: 0; top: 0; background: url(../images/logo.png) no-repeat 0 0; }
-}
-#mid 
-{	width: @baseWidth; margin: 0 auto;
-	div { width: @baseWidth;  /* IE hack */ height: 100%; display: none; }
-	img { max-width: 100%; }
-	.cycle-pager 
-	{	min-width: 10px; position: absolute; left: 100px; top: 190px; z-index: 10000; 
-		span 
-		{	width: 12px; height: 12px; margin: 0 5px 0 0; float: left; background: url(../images/sprite_messaging_paging.png) no-repeat -20px 0; text-indent: -9000em;
-			&.cycle-pager-active, &:hover { background-position: 0 0; }
-		}
-	}
-}
-
-
-/*------------------------------
-	SIDEBAR
------------------------------- */
-
-#sidebar 
-{	width: @sidebarWidth; float: right; .fontSize(@sidebarFontSize, @baseFontSize);
-	ul
-	{	padding-left: 20px;
-		li { margin-bottom: 3px; }
-		a
-		{	text-decoration: none; display: block;
-			&:hover { text-decoration: underline; }
-		}
-	}
-	h2 { .fontSize(17); font-weight: normal; color: #666; text-transform: uppercase; }
-	form 
-	{ 
-		div { margin: 0 0 1em; }
-		input[type="text"], textarea { .textInput; }
-		textarea { height: 157px; }
-		.wpcf7-submit { width: 95px; height: 23px; background: url(../images/btn_submit.png) no-repeat 0 0; text-indent: -9000em; overflow: hidden; border: none; }
-	}
- }
-
-
-/*------------------------------
 	FORMS
 ------------------------------ */
 
-
-.gform_wrapper { .nomp; max-width: none; }
+/*.gform_wrapper { .nomp; max-width: none; }
 #gform_0 
 {	margin: 10px 0 40px; padding: 0;
 	.toggle label { display: none; }
@@ -286,7 +341,7 @@ h5 { font-size: 1em; }
 	textarea { height: 157px; }
 	input[type="submit"], input[type="image"] { border: none; width: auto; height: auto; float: right; }
 	.gform_footer { .nomp; }
- }
+}*/
 
 
 /*------------------------------

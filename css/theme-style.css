@@ -90,23 +90,23 @@ h5{font-size:1em;}
 #content{width:620px;float:left;font-size:1.4em;line-height:1.5714285714285714;}#content p,#content ul,#content ol{margin-top:0;margin-bottom:1em;}
 #content img{max-width:100%;}
 #top{width:980px;height:92px;margin:0 auto;position:relative;}#top .contact{width:189px;height:39px;float:right;margin:29px 8px 0 0;text-align:center;}
-#top #brand{width:100px;height:73px;display:block;text-indent:-9000em;overflow:hidden;position:absolute;left:0;top:0;background:url(../images/logo.png) no-repeat 0 0;}
+#top #brand{width:100px;height:73px;display:block;text-indent:-9000em;overflow:hidden;position:absolute;left:0;top:0;background:url(../img/logo.png) no-repeat 0 0;}
 #mid{width:980px;margin:0 auto;}#mid div{width:980px;height:100%;display:none;}
 #mid img{max-width:100%;}
-#mid .cycle-pager{min-width:10px;position:absolute;left:100px;top:190px;z-index:10000;}#mid .cycle-pager span{width:12px;height:12px;margin:0 5px 0 0;float:left;background:url(../images/sprite_messaging_paging.png) no-repeat -20px 0;text-indent:-9000em;}#mid .cycle-pager span.cycle-pager-active,#mid .cycle-pager span:hover{background-position:0 0;}
+#mid .cycle-pager{min-width:10px;position:absolute;left:100px;top:190px;z-index:10000;}#mid .cycle-pager span{width:12px;height:12px;margin:0 5px 0 0;float:left;background:url(../img/sprite_messaging_paging.png) no-repeat -20px 0;text-indent:-9000em;}#mid .cycle-pager span.cycle-pager-active,#mid .cycle-pager span:hover{background-position:0 0;}
 #sidebar{width:254px;float:right;font-size:1.4em;}#sidebar ul{padding-left:20px;}#sidebar ul li{margin-bottom:3px;}
 #sidebar ul a{text-decoration:none;display:block;}#sidebar ul a:hover{text-decoration:underline;}
 #sidebar h2{font-size:1.2142857142857142em;font-weight:normal;color:#666;text-transform:uppercase;}
 #sidebar form div{margin:0 0 1em;}
-#sidebar form input[type="text"],#sidebar form textarea{width:178px;height:18px;padding:0 8px;border:1px solid #cccccc;font:italic 14px Arial,Helvetica,sans-serif;line-height:18px;color:#999999;background:#ffffff url(../images/bg_input.png) repeat-x 0 0;resize:none;-moz-border-radius:3px;-khtml-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;behavior:url(PIE.htc);}
+#sidebar form input[type="text"],#sidebar form textarea{width:178px;height:18px;padding:0 8px;border:1px solid #cccccc;font:italic 14px Arial,Helvetica,sans-serif;line-height:18px;color:#999999;background:#ffffff url(../img/bg_input.png) repeat-x 0 0;resize:none;-moz-border-radius:3px;-khtml-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;behavior:url(PIE.htc);}
 #sidebar form textarea{height:157px;}
-#sidebar form .wpcf7-submit{width:95px;height:23px;background:url(../images/btn_submit.png) no-repeat 0 0;text-indent:-9000em;overflow:hidden;border:none;}
+#sidebar form .wpcf7-submit{width:95px;height:23px;background:url(../img/btn_submit.png) no-repeat 0 0;text-indent:-9000em;overflow:hidden;border:none;}
 .gform_wrapper{margin:0;padding:0;max-width:none;}
 #gform_0{margin:10px 0 40px;padding:0;}#gform_0 .toggle label{display:none;}
 #gform_0 ul{min-height:10px;margin:0;padding:0;background:none;}
 #gform_0 li{margin:0 0 10px;padding:0;background:none;list-style-type:none;}#gform_0 li li{margin:0;}
 #gform_0 .gfield_checkbox label{line-height:2.3;}
-#gform_0 input[type="text"],#gform_0 textarea{width:178px;height:18px;padding:0 8px;border:1px solid #cccccc;font:italic 14px Arial,Helvetica,sans-serif;line-height:18px;color:#999999;background:#ffffff url(../images/bg_input.png) repeat-x 0 0;resize:none;-moz-border-radius:3px;-khtml-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;behavior:url(PIE.htc);}
+#gform_0 input[type="text"],#gform_0 textarea{width:178px;height:18px;padding:0 8px;border:1px solid #cccccc;font:italic 14px Arial,Helvetica,sans-serif;line-height:18px;color:#999999;background:#ffffff url(../img/bg_input.png) repeat-x 0 0;resize:none;-moz-border-radius:3px;-khtml-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;behavior:url(PIE.htc);}
 #gform_0 textarea{height:157px;}
 #gform_0 input[type="submit"],#gform_0 input[type="image"]{border:none;width:auto;height:auto;float:right;}
 #gform_0 .gform_footer{margin:0;padding:0;}

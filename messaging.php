@@ -22,7 +22,7 @@
 				
 				if (!$the_query->have_posts())
 				{
-					echo sprintf('<div><img src="%s/images/messaging_home.jpg" alt="" /></div>', themedir(false));
+					echo sprintf('<div><img src="%s/img/messaging_home.jpg" alt="" /></div>', themedir(false));
 				}
 				else
 				{
