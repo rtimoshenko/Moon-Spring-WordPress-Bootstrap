@@ -10,8 +10,6 @@
 */
 
 
-use MoonSpring\Service\IServiceManager;
-	
 class WPTheme
 {
 
@@ -34,11 +32,11 @@ class WPTheme
     protected $serviceManager = null;
     
     // Dependency injected constructor
-    public function __construct(IServiceManager $serviceManager)
+    public function __construct()
     {
-        var_dump($serviceManager);
         //$this->assetService = $serviceManager->IAssetService;
         //$this->seoService = $serviceManager->ISEOService;
+        echo 'theme constructed';
         exit;
     }
 }

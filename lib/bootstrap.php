@@ -4,7 +4,7 @@
 	//use \MoonSpring\Service\ServiceManager;
 	use \MoonSpring\DI\DependencyResolver;
 	use \MoonSpring\DI\FluentIOCContainer;
-	use \MoonSpring\Theme\WPTheme;
+	//use \MoonSpring\Theme\WPTheme;
 
 	error_reporting(E_ALL); // DEBUG
 	ini_set('display_errors', '1'); // DEBUG
@@ -17,4 +17,6 @@
 
 	$container->bind('\MoonSpring\Service\IServiceManager', '\MoonSpring\Service\ServiceManager');
 
-	$theme = new WPTheme(new ServiceManager($container));
+	// http://en.wikipedia.org/wiki/Hollywood_Principle
+	// "Don't call us, we'll call you" - don't inject container, have the container make the call
+	$theme = $container->resolve('\MoonSpring\Theme\WPTheme');
